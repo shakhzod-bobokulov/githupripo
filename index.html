@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bozor Do'koni — Onlayn Xaridlar</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">🛒 Bozor<span>Do'kon</span></a>
+
+    <nav class="nav" id="nav">
+      <a href="#home">Bosh sahifa</a>
+      <a href="#products">Mahsulotlar</a>
+      <a href="#about">Biz haqimizda</a>
+      <a href="#contact">Aloqa</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="cart-btn" id="cartBtn">
+        🛍️ Savat <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="burger" id="burger" aria-label="Menyu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h1>Sifatli mahsulotlar,<br> qulay narxlarda</h1>
+      <p>Do'konimizdan eng sara mahsulotlarni tanlang, biz sizga tez va ishonchli yetkazib beramiz.</p>
+      <a href="#products" class="btn btn-primary">Xarid qilishni boshlash</a>
+    </div>
+    <div class="hero-image">🛒</div>
+  </div>
+</section>
+
+<section class="categories">
+  <div class="container categories-inner">
+    <button class="cat-btn active" data-cat="all">Barchasi</button>
+    <button class="cat-btn" data-cat="oziq-ovqat">Oziq-ovqat</button>
+    <button class="cat-btn" data-cat="kiyim">Kiyim-kechak</button>
+    <button class="cat-btn" data-cat="elektronika">Elektronika</button>
+    <button class="cat-btn" data-cat="uy">Uy-ro'zg'or</button>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="container">
+    <h2 class="section-title">Mahsulotlar</h2>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="perks">
+  <div class="container perks-grid">
+    <div class="perk">
+      <div class="perk-icon">🚚</div>
+      <h3>Tez yetkazib berish</h3>
+      <p>Shahar bo'ylab 24 soat ichida yetkazamiz</p>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">💳</div>
+      <h3>Qulay to'lov</h3>
+      <p>Naqd va plastik karta orqali to'lov</p>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">↩️</div>
+      <h3>Oson qaytarish</h3>
+      <p>7 kun ichida mahsulotni qaytarish imkoniyati</p>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">⭐</div>
+      <h3>Sifat kafolati</h3>
+      <p>Barcha mahsulotlar sertifikatlangan</p>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-inner">
+    <div class="about-image">🏪</div>
+    <div class="about-text">
+      <h2 class="section-title">Biz haqimizda</h2>
+      <p>"BozorDo'kon" — 2015-yildan buyon mijozlarimizga sifatli mahsulotlarni qulay narxlarda taqdim etib kelmoqda. Bizning maqsadimiz — har bir xaridorni mamnun qilish va eng yaxshi xizmat ko'rsatish.</p>
+      <ul class="about-list">
+        <li>✅ 5000+ mamnun mijozlar</li>
+        <li>✅ 1000+ mahsulot turlari</li>
+        <li>✅ 10 yildan ortiq tajriba</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <h2 class="section-title">Biz bilan bog'laning</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>📍 Manzil: Toshkent shahar, Chilonzor tumani</p>
+        <p>📞 Telefon: +998 90 123 45 67</p>
+        <p>✉️ Email: info@bozordokon.uz</p>
+        <p>🕒 Ish vaqti: Har kuni 09:00 - 21:00</p>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <input type="text" placeholder="Ismingiz" required>
+        <input type="tel" placeholder="Telefon raqamingiz" required>
+        <textarea placeholder="Xabaringiz" rows="4"></textarea>
+        <button type="submit" class="btn btn-primary">Yuborish</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2026 BozorDo'kon. Barcha huquqlar himoyalangan.</p>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>Savat</h3>
+    <button id="closeCart" class="close-btn">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total">Jami: <span id="cartTotal">0</span> so'm</div>
+    <button class="btn btn-primary btn-full" id="checkoutBtn">Buyurtma berish</button>
+  </div>
+</aside>
+
+<script src="script.js"></script>
+</body>
+</html>

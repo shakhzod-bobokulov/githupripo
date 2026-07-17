@@ -1,0 +1,35 @@
+{% extends "store/base.html" %}
+
+{% block title %}Buyurtma berish — BozorDo'kon{% endblock %}
+
+{% block content %}
+<section class="checkout-page">
+  <div class="container checkout-inner">
+    <div class="checkout-form-wrap">
+      <h1 class="section-title" style="text-align:left">Buyurtma ma'lumotlari</h1>
+      <form method="post" class="contact-form">
+        {% csrf_token %}
+        {{ form.full_name }}
+        {{ form.phone }}
+        {{ form.address }}
+        {{ form.note }}
+        <button type="submit" class="btn btn-primary btn-full">Buyurtmani tasdiqlash</button>
+      </form>
+    </div>
+
+    <div class="checkout-summary">
+      <h2>Buyurtma tarkibi</h2>
+      {% for item in cart %}
+      <div class="summary-row">
+        <span>{{ item.product.name }} × {{ item.quantity }}</span>
+        <span>{{ item.total_price|floatformat:0 }} so'm</span>
+      </div>
+      {% endfor %}
+      <div class="summary-row summary-total">
+        <span>Jami</span>
+        <span>{{ cart.get_total_price|floatformat:0 }} so'm</span>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

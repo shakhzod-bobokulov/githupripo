@@ -1,0 +1,41 @@
+{% extends "store/base.html" %}
+
+{% block title %}{{ product.name }} — BozorDo'kon{% endblock %}
+
+{% block content %}
+<section class="product-detail">
+  <div class="container product-detail-inner">
+    <div class="product-detail-img">
+      {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      {% else %}
+        {{ product.icon }}
+      {% endif %}
+    </div>
+    <div class="product-detail-info">
+      <p class="breadcrumb"><a href="{% url 'store:product_list' %}?category={{ product.category.slug }}">{{ product.category.name }}</a></p>
+      <h1>{{ product.name }}</h1>
+      <p class="product-detail-desc">{{ product.description|default:"Tavsif hozircha qo'shilmagan." }}</p>
+      <div class="product-detail-price">{{ product.price|floatformat:0 }} so'm</div>
+      <form method="post" action="{% url 'store:cart_add' product.id %}" class="add-to-cart-form">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <label for="qty">Miqdori:</label>
+        <input type="number" id="qty" name="quantity" value="1" min="1">
+        <button type="submit" class="btn btn-primary">Savatga qo'shish</button>
+      </form>
+    </div>
+  </div>
+
+  {% if related_products %}
+  <div class="container">
+    <h2 class="section-title">O'xshash mahsulotlar</h2>
+    <div class="product-grid">
+      {% for product in related_products %}
+        {% include "store/_product_card.html" %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

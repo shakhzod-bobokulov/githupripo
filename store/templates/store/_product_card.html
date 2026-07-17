@@ -1,0 +1,22 @@
+{% load static %}
+<div class="product-card">
+  <a href="{{ product.get_absolute_url }}" class="product-img">
+    {% if product.image %}
+      <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% else %}
+      {{ product.icon }}
+    {% endif %}
+  </a>
+  <div class="product-info">
+    <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a>
+    <div class="product-desc">{{ product.description|truncatechars:60 }}</div>
+    <div class="product-footer">
+      <span class="product-price">{{ product.price|floatformat:0 }} so'm</span>
+      <form method="post" action="{% url 'store:cart_add' product.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <button type="submit" class="add-btn">Qo'shish</button>
+      </form>
+    </div>
+  </div>
+</div>

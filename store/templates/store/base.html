@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}BozorDo'kon — Onlayn Xaridlar{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="{% url 'store:home' %}" class="logo">🛒 Bozor<span>Do'kon</span></a>
+
+    <nav class="nav" id="nav">
+      <a href="{% url 'store:home' %}">Bosh sahifa</a>
+      <a href="{% url 'store:product_list' %}">Mahsulotlar</a>
+      <a href="{% url 'store:home' %}#about">Biz haqimizda</a>
+      <a href="{% url 'store:home' %}#contact">Aloqa</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="{% url 'store:cart_detail' %}" class="cart-btn">
+        🛍️ Savat <span class="cart-count">{{ cart|length }}</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Menyu">☰</button>
+    </div>
+  </div>
+</header>
+
+{% if messages %}
+<div class="container">
+  <div class="messages">
+    {% for message in messages %}
+      <div class="message message-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2026 BozorDo'kon. Barcha huquqlar himoyalangan.</p>
+  </div>
+</footer>
+
+<script src="{% static 'store/js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

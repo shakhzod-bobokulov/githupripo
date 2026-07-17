@@ -1,0 +1,17 @@
+{% extends "store/base.html" %}
+
+{% block title %}Buyurtma qabul qilindi — BozorDo'kon{% endblock %}
+
+{% block content %}
+<section class="order-success">
+  <div class="container">
+    <div class="success-box">
+      <div class="success-icon">✅</div>
+      <h1>Buyurtmangiz qabul qilindi!</h1>
+      <p>Buyurtma raqami: <strong>#{{ order.id }}</strong></p>
+      <p>Tez orada operatorlarimiz siz bilan <strong>{{ order.phone }}</strong> raqami orqali bog'lanadi.</p>
+      <a href="{% url 'store:product_list' %}" class="btn btn-primary">Xaridni davom ettirish</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

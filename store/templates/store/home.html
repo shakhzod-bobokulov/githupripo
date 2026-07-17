@@ -1,39 +1,14 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bozor Do'koni — Onlayn Xaridlar</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+{% extends "store/base.html" %}
+{% load static %}
 
-<header class="header">
-  <div class="container header-inner">
-    <a href="#" class="logo">🛒 Bozor<span>Do'kon</span></a>
-
-    <nav class="nav" id="nav">
-      <a href="#home">Bosh sahifa</a>
-      <a href="#products">Mahsulotlar</a>
-      <a href="#about">Biz haqimizda</a>
-      <a href="#contact">Aloqa</a>
-    </nav>
-
-    <div class="header-actions">
-      <button class="cart-btn" id="cartBtn">
-        🛍️ Savat <span class="cart-count" id="cartCount">0</span>
-      </button>
-      <button class="burger" id="burger" aria-label="Menyu">☰</button>
-    </div>
-  </div>
-</header>
+{% block content %}
 
 <section class="hero" id="home">
   <div class="container hero-inner">
     <div class="hero-text">
       <h1>Sifatli mahsulotlar,<br> qulay narxlarda</h1>
       <p>Do'konimizdan eng sara mahsulotlarni tanlang, biz sizga tez va ishonchli yetkazib beramiz.</p>
-      <a href="#products" class="btn btn-primary">Xarid qilishni boshlash</a>
+      <a href="{% url 'store:product_list' %}" class="btn btn-primary">Xarid qilishni boshlash</a>
     </div>
     <div class="hero-image">🛒</div>
   </div>
@@ -41,18 +16,26 @@
 
 <section class="categories">
   <div class="container categories-inner">
-    <button class="cat-btn active" data-cat="all">Barchasi</button>
-    <button class="cat-btn" data-cat="oziq-ovqat">Oziq-ovqat</button>
-    <button class="cat-btn" data-cat="kiyim">Kiyim-kechak</button>
-    <button class="cat-btn" data-cat="elektronika">Elektronika</button>
-    <button class="cat-btn" data-cat="uy">Uy-ro'zg'or</button>
+    <a href="{% url 'store:product_list' %}" class="cat-btn active">Barchasi</a>
+    {% for category in categories %}
+      <a href="{% url 'store:product_list' %}?category={{ category.slug }}" class="cat-btn">{{ category.name }}</a>
+    {% endfor %}
   </div>
 </section>
 
 <section class="products" id="products">
   <div class="container">
-    <h2 class="section-title">Mahsulotlar</h2>
-    <div class="product-grid" id="productGrid"></div>
+    <h2 class="section-title">Mashhur mahsulotlar</h2>
+    <div class="product-grid">
+      {% for product in featured_products %}
+        {% include "store/_product_card.html" %}
+      {% empty %}
+        <p class="empty-note">Hozircha mahsulotlar qo'shilmagan.</p>
+      {% endfor %}
+    </div>
+    <div class="view-all">
+      <a href="{% url 'store:product_list' %}" class="btn btn-primary">Barcha mahsulotlarni ko'rish</a>
+    </div>
   </div>
 </section>
 
@@ -106,35 +89,15 @@
         <p>✉️ Email: info@bozordokon.uz</p>
         <p>🕒 Ish vaqti: Har kuni 09:00 - 21:00</p>
       </div>
-      <form class="contact-form" id="contactForm">
-        <input type="text" placeholder="Ismingiz" required>
-        <input type="tel" placeholder="Telefon raqamingiz" required>
-        <textarea placeholder="Xabaringiz" rows="4"></textarea>
+      <form class="contact-form" method="post" action="{% url 'store:contact_submit' %}">
+        {% csrf_token %}
+        {{ contact_form.name }}
+        {{ contact_form.phone }}
+        {{ contact_form.message }}
         <button type="submit" class="btn btn-primary">Yuborish</button>
       </form>
     </div>
   </div>
 </section>
 
-<footer class="footer">
-  <div class="container">
-    <p>© 2026 BozorDo'kon. Barcha huquqlar himoyalangan.</p>
-  </div>
-</footer>
-
-<div class="cart-overlay" id="cartOverlay"></div>
-<aside class="cart-panel" id="cartPanel">
-  <div class="cart-header">
-    <h3>Savat</h3>
-    <button id="closeCart" class="close-btn">✕</button>
-  </div>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="cart-footer">
-    <div class="cart-total">Jami: <span id="cartTotal">0</span> so'm</div>
-    <button class="btn btn-primary btn-full" id="checkoutBtn">Buyurtma berish</button>
-  </div>
-</aside>
-
-<script src="script.js"></script>
-</body>
-</html>
+{% endblock %}

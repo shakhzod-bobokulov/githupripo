@@ -1,0 +1,48 @@
+{% extends "store/base.html" %}
+
+{% block title %}Savat — BozorDo'kon{% endblock %}
+
+{% block content %}
+<section class="cart-page">
+  <div class="container">
+    <h1 class="section-title">Savat</h1>
+
+    {% if cart|length == 0 %}
+      <p class="empty-note">Savatingiz bo'sh. <a href="{% url 'store:product_list' %}">Xarid qilishni boshlang</a>.</p>
+    {% else %}
+      <div class="cart-table">
+        {% for item in cart %}
+        <div class="cart-row">
+          <div class="cart-row-icon">
+            {% if item.product.image %}
+              <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            {% else %}
+              {{ item.product.icon }}
+            {% endif %}
+          </div>
+          <div class="cart-row-info">
+            <a href="{{ item.product.get_absolute_url }}" class="cart-row-name">{{ item.product.name }}</a>
+            <div class="cart-row-price">{{ item.price|floatformat:0 }} so'm</div>
+          </div>
+          <form method="post" action="{% url 'store:cart_update' item.product.id %}" class="cart-row-qty">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+            <button type="submit" class="btn btn-primary">Yangilash</button>
+          </form>
+          <div class="cart-row-total">{{ item.total_price|floatformat:0 }} so'm</div>
+          <form method="post" action="{% url 'store:cart_remove' item.product.id %}">
+            {% csrf_token %}
+            <button type="submit" class="remove-btn" title="O'chirish">✕</button>
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="cart-summary">
+        <div class="cart-total">Jami: <span>{{ cart.get_total_price|floatformat:0 }} so'm</span></div>
+        <a href="{% url 'store:checkout' %}" class="btn btn-primary">Buyurtma berish</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
